@@ -1,6 +1,6 @@
 # this dockerfile must be built from the top-level stash directory
 # ie from top=level stash:
-# docker build -t stash-box/build -f docker/build/x86_64/Dockerfile .
+# docker build -t insecurit/stash-box:build -f docker/build/x86_64/Dockerfile .
 
 FROM golang:1.16 as compiler
 
@@ -31,7 +31,7 @@ RUN make generate
 RUN make ui 
 RUN make build
 
-FROM ubuntu as app
+FROM ssmbtech/cis:18.04lts as app
 
 RUN apt-get update && apt-get -y install ca-certificates
 COPY --from=compiler /stash-box/stash-box /usr/bin/
