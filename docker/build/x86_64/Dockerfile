@@ -1,6 +1,6 @@
 # this dockerfile must be built from the top-level stash directory
 # ie from top=level stash:
-# docker build -t insecurit/stash-box:build -f docker/build/x86_64/Dockerfile .
+# docker build -t insecurit/stash-box:build-09.09.21 -f docker/build/x86_64/Dockerfile .
 
 FROM golang:1.16 as compiler
 
@@ -10,7 +10,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update && \
-    apt-get install -y nodejs yarn xz-utils --no-install-recommends || exit 1; \
+    apt-get install -y nodejs yarn xz-utils --no-install-recommends && \
+    yarn set version berry || exit 1; \
 	rm -rf /var/lib/apt/lists/*;
 	
 WORKDIR /
