@@ -1,4 +1,4 @@
-FROM postgres:13.3
+FROM postgres:13.4
 
 RUN buildDeps='git make gcc postgresql-server-dev-13' \
 		&& apt update && apt install -y $buildDeps --no-install-recommends --reinstall ca-certificates \
